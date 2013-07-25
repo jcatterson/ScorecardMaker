@@ -1,0 +1,9 @@
+<apex:component layout="none">
+	<apex:attribute name="card" type="Scorecard" required="true" description="The scorecard that is going to be displayed"/>
+	<apex:outputPanel layout="none" rendered="{!card.type == 'Columns_Vertical'}">
+		<c:scorecardColumnsVertical card="{!card}"/>
+	</apex:outputPanel>
+	<apex:outputPanel layout="none" rendered="{!card.type == 'Columns_Horizontal'}">
+		<c:scorecardColumnsHorizontal card="{!card}"/>
+	</apex:outputPanel>
+</apex:component>

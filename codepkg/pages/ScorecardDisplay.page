@@ -1,0 +1,25 @@
+<apex:page controller="ScorecardJSONDriver">
+	<apex:stylesheet value="{!URLFOR($Resource.Scorecard)}" />
+
+    <table class="scorecard" width="100%">
+        <apex:repeat value="{!sc.titles}" var="layers">
+            <tr>
+                <td class="topleft" style="{!layers[0].css}"/>
+                <apex:repeat value="{!layers}" var="title">
+                    <td colspan="{!title.colspan}" style="text-align:center; {!title.css}">{!title.label}</td>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+		<apex:repeat value="{!sc.cols}" var="col">
+			<tr>
+				<th style="{!col.css}">{!col.label}</th>
+				<apex:repeat value="{!sc.titles[sc.lastTitleLayer]}" var="title">
+					<c:ScorecardCell cellsRow="{!title.table.myRow}" cellsCol="{!col}"/>
+<!--					<td>{!title.table.myRow.columnMap[ col.name  ].value}</td>-->
+                </apex:repeat>
+
+			</tr>
+		</apex:repeat>
+    </table>
+
+</apex:page>

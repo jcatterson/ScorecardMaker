@@ -1,0 +1,132 @@
+<apex:page controller="ScorecardMaker" sidebar="false" showHeader="false" standardStylesheets="false" docType="html-5.0">
+<head>
+
+	<link rel="stylesheet" href="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/themes/base/jquery.ui.all.css')}"/>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/js/jquery-1.9.1.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.core.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.widget.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.mouse.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.draggable.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.droppable.js')}"></script>
+	<script src="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.2.custom/development-bundle/ui/jquery.ui.selectable.js')}"></script>
+	
+	<script src="{!URLFOR($Resource.scorecardObjects)}"></script>
+	<link rel="stylesheet" href="{!URLFOR($Resource.scorecardLayout)}"/>
+
+</head>
+
+	<div class="sidePanel">
+		<div class="toolbarSection">
+			<span class="draggable">Title</span>
+			<span class="rowDraggable">Row</span>
+			<span class="draggable">Scorecard</span>
+			<apex:form >
+				<apex:outputPanel style="display:none;">
+					<apex:inputText id="scorecardDetails" value="{!scorecardDetails}"/>
+				</apex:outputPanel>
+				<input type="button" id="saveBtn" class="btn" value="Save Scorecard"/>
+				<apex:actionFunction name="saveCard" action="{!save}" rerender="">
+					<apex:param name="details" value="" assignTo="{!scorecardDetails}"/>
+				</apex:actionFunction>
+			</apex:form>
+		</div>
+		
+		<div id="titleEditSection" class="editSection">
+			<table style="width:100%">
+				<tr>
+					<td style="width:20%;"><label for="titleName" style="font-weight:bold;">Name:</label></td>
+					<td style="width:80%;"><input type="text" id="titleName"/></td>
+				</tr>
+				<tr>
+					<td style="width:20%;"><label for="style" style="font-weight:bold;">Css:</label></td>
+					<td style="width:80%;"><input type="text" id="titleStyle"/></td>
+				</tr>
+				<tr>
+					<td><input type="button" id="saveTitle" value="save"/></td>
+				</tr>
+				<tr>
+					<td style="width:20%;"><label for="style" style="font-weight:bold;">Title Type:</label></td>
+					<td style="width:80%;">
+						<select id="titleType">
+							<option value="standard" label="standard"/>
+							<option value="comparator" label="comparator"/>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<textarea rows="15" cols="25"></textarea>
+		</div>
+		
+		<div id="rowEditSection" class="rowEditSection">
+			<table style="width:100%">
+				<tr>
+					<td style="width:20%;"><label for="rowName" style="font-weight:bold;">Name:</label></td>
+					<td style="width:80%;"><input type="text" id="rowName"/></td>
+				</tr>
+				<tr>
+					<td style="width:20%;"><label for="style" style="font-weight:bold;">Css:</label></td>
+					<td style="width:80%;"><input type="text" id="rowStyle"/></td>
+				</tr>
+				<tr>
+					<td style="width:20%;"><label for="style" style="font-weight:bold;">Alias:</label></td>
+					<td style="width:80%;"><input type="text" id="rowAlias"/></td>
+				</tr>
+				<tr>
+					<td>Type:</td>
+					<td>
+						<select id="rowType">
+							<option value="number" label="number"/>
+							<option value="currency" label="currency"/>
+							<option value="percent" label="percent"/>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="button" id="saveRow" value="save"/></td>
+				</tr>
+			</table>			
+		</div>
+		
+		<div id="cellEditSection" class="cellEditSection">
+			<table style="width:100%">
+				<tr>
+					<td style="width:20%;"><label for="tableName" style="font-weight:bold;">Table:</label></td>
+					<td style="width:80%;"><input type="text" id="tableName"/></td>
+					<td/>
+					<td/>
+				</tr>
+				<tr>
+					<td style="width:20%;"><label for="type" style="font-weight:bold;">Aggregate Type:</label></td>
+					<td style="width:30%;">
+						<select id="type">
+							<option value="sum" label="sum"/>
+							<option value="count" label="count"/>
+							<option value="avg" label="average"/>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Field:</td>
+					<td><input type="text" id="field"/></td>
+				</tr>
+				<tr>
+					<td>Condition</td>
+					<td><textarea id="condition" rows="15" cols="15"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="button" id="saveCell" value="save"/></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	
+	<div class="scorecardPage">
+		<table class="titleSection">
+			<tr class="scorecardContainer">
+				<td/>
+			</tr>
+		</table>		
+	</div> 	
+	
+</apex:page>

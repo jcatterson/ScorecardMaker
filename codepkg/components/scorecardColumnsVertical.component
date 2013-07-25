@@ -1,0 +1,30 @@
+<apex:component layout="none">
+	<apex:attribute name="card" type="Scorecard" required="true" description="The scorecard that is going to be displayed"/>
+	<apex:stylesheet value="{!URLFOR($Resource.Scorecard)}" />
+
+	<table class="scorecard">
+        <apex:repeat value="{!card.titles}" var="layers">
+            <tr>
+                <td class="topleft {!layers[0].css}" />
+                <apex:repeat value="{!layers}" var="title">
+                    <td class="{!title.css}" colspan="{!title.colspan}" style="text-align:center;">{!title.label}</td>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+
+		<apex:repeat value="{!card.myRows}" var="row">
+			<tr>
+				<th>{!row.Name}</th>
+
+				<apex:repeat value="{!card.titles[card.lastTitleLayer]}" var="title">
+                    <apex:outputPanel rendered="{!NOT(ISNULL(title.table))}" layout="none">
+						<td>{!title.table.rowsByName[row.Name].columnMap[row.Alias__c].value}</td>
+                    </apex:outputPanel>
+					<apex:outputPanel rendered="{!ISNULL(title.table)}" layout="none">
+						<td></td>
+					</apex:outputPanel>
+                </apex:repeat>
+			</tr>
+		</apex:repeat>
+	</table>
+</apex:component>

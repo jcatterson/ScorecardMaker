@@ -1,0 +1,27 @@
+<apex:component layout="none">
+	<apex:attribute name="cellsRow" type="Row" required="true" description="The row related to the cell"/>
+	<apex:attribute name="cellsCol" type="Column" required="true" description="The column related to the cell"/>
+	<apex:outputPanel rendered="{!OR(cellsCol.isNumber, cellsCol.isCurrency, cellsCol.isPercent) }" layout="none">
+		<apex:variable value="{!cellsRow.columnMap[cellsCol.name]}" var="cell"/>
+			<td class="myCell {!IF(cell.isBelowTarget, 'below_target', '') } {!cell.css}">
+				<apex:outputPanel rendered="{!cellsCol.isNumber}" >
+						<apex:outputText value="{0, number, integer}">
+							<apex:param value="{!cell.value}" />
+						</apex:outputText>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!cellsCol.isCurrency}" >
+						<apex:outputText value="{0, number, currency}">
+							<apex:param value="{!cell.value}" />
+						</apex:outputText>
+				</apex:outputPanel>
+				<apex:outputPanel rendered="{!cellsCol.isPercent}" >
+						<apex:outputText value="{0, number, #.##'%'}">
+							<apex:param value="{!cell.value}" />
+						</apex:outputText>
+				</apex:outputPanel>
+			</td>
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!NOT(OR(cellsCol.isNumber, cellsCol.isCurrency, cellsCol.isPercent) )}" layout="none">
+		<td>Invalid type! {!cellsCol}</td>
+	</apex:outputPanel>
+</apex:component>

@@ -1,0 +1,20 @@
+<apex:component layout="none">
+	<apex:attribute name="card" type="Scorecard" required="true" description="The scorecard that is going to be displayed"/>
+	<apex:stylesheet value="{!URLFOR($Resource.Scorecard)}" />
+
+	<table class="scorecard">
+		<tr class="header">
+			<td id="topleft" />
+			<apex:repeat value="{!card.myRows}" var="row">
+				<th>{!row.Name}</th>
+			</apex:repeat>
+		</tr>
+
+		<apex:variable var="titles" value="{!card.titles[card.lastTitleLayer]}"/>
+		<apex:repeat value="{!titles}" var="title">
+			<tr>
+				<th>{!title.label}</th>
+			</tr>
+		</apex:repeat>
+	</table>
+</apex:component>

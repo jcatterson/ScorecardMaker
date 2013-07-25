@@ -1,0 +1,4 @@
+<apex:page controller="ScorecardDriver">
+	<c:scorecard card="{!card}"/>
+	<c:scorecard card="{!originalCard}"/>
+</apex:page>
